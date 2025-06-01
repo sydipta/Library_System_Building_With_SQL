@@ -43,7 +43,7 @@ GROUP BY 1
 HAVING 
 	 COUNT(issued_book_isbn)>1;
 
---CTAS Task
+--## CTAS Task
 --Task 6: Create Summary Tables: Used CTAS to generate new tables based on query results - each book and total book_issued_cnt
 CREATE TABLE issue_counts AS
 SELECT 
@@ -59,7 +59,7 @@ LIMIT 5;
 ALTER TABLE issue_counts
 RENAME no_of_issued TO issue_count;
 
---Data Analysis & Findings
+--## Data Analysis & Findings
 --Task 7. Retrieve All Books in a Specific Category:
 SELECT book_title, isbn
 FROM books
@@ -79,8 +79,8 @@ WHERE reg_date>=CURRENT_DATE - INTERVAL '180 days'
 SELECT * FROM members
 WHERE CURRENT_DATE - reg_date <= 180;
 
---Task 10: List Employees with Their Branch Manager's Name and their branch details:
---branch id, mngr id, brnch add----emp id, emp name, position, salary, branch id
+/*Task 10: List Employees with Their Branch Manager's Name and their branch details: branch id, mngr id, brnch add----emp id, emp name, position, salary, 
+branch id*/
 SELECT b.branch_id, e1.emp_id, e1.emp_name, e1.position, e1.salary, e2.emp_name as manager_name
 FROM branch as b
 JOIN employees AS e1
@@ -115,10 +115,9 @@ issued_id AS not_returned_book_id, issued_book_name, issued_date, issued_book_is
 FROM issued_status
 WHERE issued_id IN (SELECT issued_id FROM not_returned);
 
---Task 13: Identify Members with Overdue Books
---Write a query to identify members who have overdue books 
---(assume a 30-day return period). Display the member's_id, member's 
---name, book title, issue date, and days overdue
+/*Task 13: Identify Members with Overdue Books. Write a query to identify members who have overdue books (assume a 30-day return period). 
+Display the member's_id, member's name, book title, issue date, and days overdue*/
+
 WITH overdue_members AS
 (SELECT issued_id, issued_member_id, issued_book_name, issued_date
 FROM issued_status
@@ -132,7 +131,6 @@ om.issued_id NOT IN (SELECT issued_id FROM return_status)
 ORDER BY 1
 
 --Method 2
-
 SELECT 
 	m.member_id, 
 	m.member_name,
@@ -154,26 +152,10 @@ WHERE
 	return_date IS NULL
 	AND 
 	CURRENT_DATE - ist.issued_date > 30
-ORDER BY 1
+ORDER BY 1 
 
---Task 14. Update Book Status on Return. Write a query to update 
---the status of books in the books table to "Yes" when they are returned 
---(based on entries in the return_status table).
-
-/* Store Procedure
-Syntax:-
-
-CREATE OR REPLACE PROCEDURE return_record()
-LANGUAGE plpgsql
-AS $$
-
-DECLARE
-
-BEGIN
-
-END;
-$$
-*/
+/*Task 14. Update Book Status on Return. Write a query to update the status of books in the books table to "Yes" when they are returned 
+(based on entries in the return_status table).*/
 
 CREATE OR REPLACE PROCEDURE add_return_record(p_return_id VARCHAR(10), p_issued_id VARCHAR(10), p_book_quality VARCHAR(15))
 LANGUAGE plpgsql
@@ -231,10 +213,8 @@ JOIN books as bk
 ON bk.isbn = ist.issued_book_isbn
 Group BY 1, 2);
 
-/*Task 18: Identify Members Issuing High-Risk Books Write a query to 
-identify members who have issued books more than twice with the status 
-"damaged" in the books table. Display the member name, book title, 
-and the number of times they've issued damaged books.*/
+/*Task 16: Identify Members Issuing High-Risk Books Write a query to identify members who have issued books more than twice with the status "damaged" in the 
+books table. Display the member name, book title, and the number of times they've issued damaged books.*/
 
 SELECT ist.issued_member_id, COUNT(rs.book_quality) AS no_of_damage_book
 FROM issued_status AS ist
@@ -244,19 +224,12 @@ WHERE rs.book_quality = 'Damaged'
 GROUP BY 1
 HAVING COUNT(rs.book_quality) >=2
 
-/*Task 19: Stored Procedure Objective: Create a stored procedure to manage 
-the status of books in a library system. Description: Write a stored 
-procedure that updates the status of a book in the library based on its 
-issuance. The procedure should function as follows: The stored procedure 
-should take the book_id as an input parameter. The procedure should first 
-check if the book is available (status = 'yes'). If the book is available, 
-it should be issued, and the status in the books table should be updated to 
-'no'. If the book is not available (status = 'no'), the procedure should 
-return an error message indicating that the book is currently not available.
+/*Task 17: Stored Procedure Objective: Create a stored procedure to manage the status of books in a library system. Description: Write a stored procedure that 
+updates the status of a book in the library based on its issuance. The procedure should function as follows: The stored procedure should take the book_id as an 
+input parameter. The procedure should first check if the book is available (status = 'yes'). If the book is available, it should be issued, and the status in the 
+books table should be updated to 'no'. If the book is not available (status = 'no'), the procedure should return an error message indicating that the book is 
+currently not available.
 */
-
-SELECT * FROM books WHERE isbn = '978-0-14-118776-1'
-SELECT * FROM issued_status
 
 CREATE OR REPLACE PROCEDURE issuing_book(p_book_isbn VARCHAR(18),p_issued_id VARCHAR(10),p_issued_emp_id VARCHAR(10),p_issued_member_id VARCHAR(10))
 LANGUAGE plpgsql
