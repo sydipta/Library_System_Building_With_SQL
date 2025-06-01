@@ -76,8 +76,8 @@ Write a query to identify members who have issued books more than twice with the
 ---
 
 ## ⚙️ **Stored Procedure**
-**Task 14**
-AND
+**Task 14**  
+AND  
 **Task 17: Manage Book Status**
 **Objective**: Create a stored procedure to manage the status of books in a library system.
 
