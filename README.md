@@ -57,7 +57,7 @@ A comprehensive SQL-based Library Management System project that includes CRUD o
 Write a query to identify members who have overdue books (assume a 30-day return period). Display the member's name, book title, issue date, and days overdue.
 
 **Task 14: Update Book Status on Return**
-Write a query to update the status of books in the `books` table to `"available"` when they are returned (based on entries in the `return_status` table).
+Write a query to update the status of books in the `books` table to `"yes"` when they are returned (based on entries in the `return_status` table).
 
 **Task 15: Branch Performance Report**
 Create a query that generates a performance report for each branch, showing:
@@ -76,7 +76,8 @@ Write a query to identify members who have issued books more than twice with the
 ---
 
 ## ⚙️ **Stored Procedure**
-
+**Task 14**
+AND
 **Task 17: Manage Book Status**
 **Objective**: Create a stored procedure to manage the status of books in a library system.
 
@@ -87,3 +88,5 @@ Write a stored procedure that updates the status of a book based on its issuance
 * If a book is returned, the status should change to `'yes'`.
 
 ---
+## ✅ Conclusion
+This project outlines a comprehensive set of tasks that reflect real-world scenarios in managing a library system using SQL. From basic CRUD operations and CTAS implementations to advanced analytics and stored procedures, each task builds critical skills in data manipulation, query optimization, and structured reporting. By completing these tasks, one can gain practical experience in handling relational databases, enhancing both technical proficiency and problem-solving abilities essential for data-driven application development.
