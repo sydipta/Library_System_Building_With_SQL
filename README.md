@@ -88,4 +88,4 @@ Write a stored procedure that updates the status of a book based on its issuance
 
 ---
 ## ✅ Conclusion
-This project outlines a comprehensive set of tasks that reflect real-world scenarios in managing a library system using SQL. From basic CRUD operations and CTAS implementations to advanced analytics and stored procedures, each task builds critical skills in data manipulation, query optimization, and structured reporting. By completing these tasks, one can gain practical experience in handling relational databases, enhancing both technical proficiency and problem-solving abilities essential for data-driven application development.
+**Working on this project gave me hands-on experience with real-world SQL scenarios in a library management system. I practiced everything from basic CRUD operations and CTAS to more advanced queries like performance reporting and stored procedures. Each task helped me strengthen my understanding of relational databases, query design, and data analysis. This project has been a solid step in improving my SQL skills and preparing for more complex database challenges.**
